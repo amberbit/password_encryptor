@@ -1,6 +1,8 @@
 require 'bcrypt'
 
 class PasswordEncryptor
+  VERSION = "1.0.0"
+
   def self.encrypt plain_text
     PasswordEncryptor.new(plain_text).encrypt
   end
