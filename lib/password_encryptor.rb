@@ -1,7 +1,7 @@
 require 'bcrypt'
 
 class PasswordEncryptor
-  VERSION = "1.0.0"
+  VERSION = "1.0.1"
 
   def self.encrypt plain_text
     PasswordEncryptor.new(plain_text).encrypt
@@ -14,6 +14,14 @@ class PasswordEncryptor
   def encrypt
     BCrypt::Password.create(@password, cost: cost)
   end
+
+  def matches?(hash)
+    BCrypt::Password.new(hash) == @password
+  rescue BCrypt::Errors::InvalidHash
+    false
+  end
+
+  alias_method :==, :matches?
 
   private
 
